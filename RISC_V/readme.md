@@ -28,7 +28,8 @@ Architecture of the design is depicted in the block diagram below:
 
 Micro-architecture of the design is shown below:
 
-<br>
+![image](https://github.com/user-attachments/assets/e32d5ae0-bb1c-4911-98f3-f6434a17a4c4)
+
 
 ---
 
@@ -38,7 +39,8 @@ Micro-architecture of the design is shown below:
 
 The design hierarchy is:
 
-<br>
+![image](https://github.com/user-attachments/assets/da8b4f77-d535-4451-84f3-92fed49ac56f)
+
 
 Each module is described in the following sections.
 
@@ -75,6 +77,8 @@ This module instantiates all 5 pipeline blocks and implements:
 ---
 
 ## Fetch Module
+![image](https://github.com/user-attachments/assets/fe0c708b-6f1e-4578-9ba1-4f8d8d55059d)
+
 
 Responsible for fetching the next instruction from memory. Includes:
 
@@ -87,6 +91,7 @@ Responsible for fetching the next instruction from memory. Includes:
 ---
 
 ## Decode Module
+![image](https://github.com/user-attachments/assets/c8e9c33a-7d14-449a-ac40-50fe2f1c4ac5)
 
 Performs instruction decoding, including:
 
@@ -99,6 +104,7 @@ Performs instruction decoding, including:
 ---
 
 ## Execute Module
+![image](https://github.com/user-attachments/assets/feaef718-1b4a-4c08-a7b0-e9541c78be5c)
 
 Implements the **ALU** and performs actual computation:
 
@@ -111,6 +117,7 @@ Implements the **ALU** and performs actual computation:
 ---
 
 ## Memory Module
+![image](https://github.com/user-attachments/assets/9ec1d391-4d26-4850-b70c-98520606b126)
 
 Handles data memory operations:
 
@@ -123,6 +130,7 @@ Handles data memory operations:
 ---
 
 ## Write-back Module
+![image](https://github.com/user-attachments/assets/2a1a55ba-a0f2-4f6b-a28a-4a938524da18)
 
 Writes the final result back to the register file:
 
@@ -233,6 +241,7 @@ Then include generated `.db` and `.ndm` in the `fc_synth.tcl`.
 ---
 
 ## TSMC IO Cell Integration
+![image](https://github.com/user-attachments/assets/b1d1d483-62d0-4310-8f9c-7e312b08faeb)
 
 - IO cells used: `PDDWEW08SCDG_H` and `PDDWEW08SCDG_V`  
 - Each top-level signal must pass through an IO cell  
@@ -257,11 +266,33 @@ PDDWUW08SCDG_V PDDWUW08SCDG_V_inst (
 ---
 
 ## Fusion Compiler GUI
+Following the integration of IO cells, I executed the command "make fc," which led to the execution of synthesis, compilation, and implementation steps. Once all these steps were successfully completed, I opened the Fusion Compiler (FC) shell GUI, loaded the Clock Tree Synthesis (CTS) file of my top wrapper, and observed the following view.
+
+![image](https://github.com/user-attachments/assets/0f71ac5b-d86e-47a6-b83a-0776090e2640)
 
 After running `make fc`, use **Fusion Compiler GUI** to:
+
 
 - Analyze placement and routing  
 - Visualize clock tree  
 - Review GDS layout  
 
 <br>
+
+
+## Corner cell integration 
+
+The next step involves incorporating appropriate corner cells into the design. To do this, navigate to the Task tab, proceed to design planning, and in the design planning panel, select wire bond IO. Move to the corner cell tab, choose the PCORNER_V cell as your corner cells, and click apply. This action will integrate corner cells into your design. In the Place IO tab, click apply to adjust corner cells in the four corners of your die. Following this step, the IC appeared as illustrated below.
+`create_cell {CORNER1 CORNER2 CORNER3 CORNER4} tphn05_12gpiossgnp0p675v1p08vm40c/PCORNER_V`
+![image](https://github.com/user-attachments/assets/f4451694-7b74-4a88-9522-17d73d00d1a6)
+
+Filler cells integration 
+
+The next crucial step is to incorporate filler cells into the design to ensure power connectivity between corner cells and IO cells. This can be achieved by executing the following command in your Fusion Compiler (FC) shell:
+
+`create_io_filler_cells -reference_cells [get_attr [get_lib_cell PFILLER00051_V] name]`
+Following this step, the IC appeared as illustrated below.
+![image](https://github.com/user-attachments/assets/c9118273-7878-4ff6-a3ee-6b7724b2a630)
+
+Currently, this marks the final step we've taken in generating the GDS. In the future, our upcoming tasks include integrating bumps into our design, running Layout Versus Schematics (LVS), and ultimately examining and resolving any Design Rule Checks (DRCs) in our design.
+
