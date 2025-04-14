@@ -1,5 +1,5 @@
 
-# RISC-V RV32I Pipeline Processor (RTL + GDS)
+# RISC-V RV32I Pipeline Processor (Frontend + Backend)
 
 ## Introduction
 
