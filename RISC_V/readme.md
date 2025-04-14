@@ -1,4 +1,3 @@
----
 
 # RISC-V RV32I Pipeline Processor
 
@@ -265,5 +264,3 @@ After running `make fc`, use **Fusion Compiler GUI** to:
 - Review GDS layout  
 
 <br>
-
----
