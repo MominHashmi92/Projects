@@ -3,7 +3,7 @@
 
 ## Introduction
 
-In this assignment, I implemented the RISC-V architecture for RV32I base instructions, encompassing four instruction types: **R-type, I-type, Load, and Store**. The RTL design was written in **SystemVerilog** and simulated using the **VCS simulator**. The processor includes:
+In this project, I implemented the RISC-V architecture for RV32I base instructions, encompassing four instruction types: **R-type, I-type, Load, and Store**. The RTL design was written in **SystemVerilog** and simulated using the **VCS simulator**. The processor includes:
 
 - Fetch block  
 - Decode block  
@@ -19,7 +19,8 @@ Each stage is registered to maintain synchronization. The architecture follows t
 
 Architecture of the design is depicted in the block diagram below:
 
-<br>
+![image](https://github.com/user-attachments/assets/861bc26f-6428-456e-ab7f-0fbead838843)
+
 
 ---
 
